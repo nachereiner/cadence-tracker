@@ -2,7 +2,7 @@
 
 - **Statut** : ✅ MVP
 - **Code** : `analysis/stats.py`, `analysis/questions.py`, `ui/views/correlations.py`, `ui/charts.py` (`scatter_by_period`, `explorer_scatter`)
-- **Tests** : `tests/test_stats.py`, `tests/test_demo_analyses.py`
+- **Tests** : `tests/test_stats.py`, `tests/test_demo_analyses.py`, `tests/test_charts.py`
 - **Décision** : [ADR 0003](../adr/0003-analyses-ajustees.md)
 
 ## Objectif
@@ -29,7 +29,7 @@ Chaque question s'affiche dans une carte qui contient :
 | 5 | Ma cadence reste-t-elle stable pendant une sortie longue ? | moyenne (et IC) des pentes de cadence au sein des sorties | sorties longues ou ≥ 1 h | — (effet brut) |
 | 6 | Ma cadence diminue-t-elle avec la fatigue ? | moyenne (et IC) des pentes cadence ~ temps + vitesse | séances continues ≥ 40 min | vitesse |
 
-- Pour les questions 2 à 4, le graphique est un nuage de km coloré par **période**, du plus clair au plus foncé du plus ancien au plus récent, avec une droite par période. Des droites qui montent d'une période à l'autre signifient une hausse à x égal.
+- Pour les questions 2 à 4, le graphique est un nuage de km coloré par **période** (3 périodes : bleu, rose, puis ambre pour la plus récente), avec une droite par période. Des droites qui montent d'une période à l'autre signifient une hausse à x égal.
 - À la question 3, un rappel s'affiche : si la cadence augmente à allure égale, il est **attendu** qu'à cadence égale l'allure soit plus lente (foulée plus courte), et ce n'est pas une baisse de forme.
 
 ### Période et filtres
@@ -50,6 +50,7 @@ L'en-tête Route/Trail et Type de séance s'applique, ainsi qu'un curseur **Pér
 
 - [x] Si la cadence ne dépend que de la vitesse et que la vitesse augmente avec le temps, l'effet brut du temps est positif mais l'effet ajusté est nul. → `test_adjusted_effect_removes_confounding_by_pace`
 - [x] Sur la démo (effets simulés connus) : cadence en hausse à allure égale, FC à allure égale en baisse avec un IC compatible avec −0,8 bpm/mois, baisse de cadence avec la fatigue. → `test_questions_recover_simulated_effects`
+- [x] Les nuages par période comptent au plus 3 périodes, en bleu, rose puis ambre ; la plus récente est toujours en ambre et chaque droite prend la couleur de sa période. → `test_periods_use_three_distinct_hues_latest_amber`, `test_fewer_periods_keep_the_latest_in_amber`
 
 ## Limites connues / évolutions
 

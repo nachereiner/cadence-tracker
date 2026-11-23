@@ -2,7 +2,8 @@
 
 Visual rules (docs/specs/F04-tableau-de-bord.md, "Règles visuelles"):
 * palette validated for colour-vision deficiency, light and dark variants;
-* at most 3 categorical colours in a scatter; ordered periods use a one-hue ramp;
+* at most 3 categorical colours in a scatter; ordered periods use 3 distinct hues
+  (blue -> pink -> amber), the most recent always amber;
 * thin marks (2 px lines, >= 8 px markers ringed with the surface colour),
   hairline solid grid, no dual axis; model lines (trends) are dashed;
 * every chart has hover tooltips; period summaries are in the hover of the
@@ -20,7 +21,7 @@ from cadence_tracker.analysis.stats import Trend, period_labels
 from cadence_tracker.units import format_pace
 
 # "Piste de nuit" chart palette (docs/specs/F11-identite-visuelle.md).
-# Categorical c1-c3 and the ordinal ramp pass scripts/validate_palette.js against
+# Categorical c1-c3 (also used, in another order, for periods) pass scripts/validate_palette.js against
 # the card surface #122036 (all-pairs, dark mode). `s1` (bright race-clock amber)
 # is reserved for single-series charts: it marks "your value".
 NIGHT = {
@@ -36,7 +37,10 @@ NIGHT = {
     "c3": "#D9628F",  # bib pink
     "model": "#9FB0C6",  # trend / model lines (dashed)
     "target": "#EAF0F7",  # goal line (dotted)
-    "ordinal": ["#8A5A0F", "#B87814", "#E59A18", "#FFC14D"],  # oldest -> most recent
+    # Ordered periods, oldest -> most recent. A one-hue amber ramp was too hard to
+    # tell apart (normal-vision ΔE 10.6 < 15); no 4-colour set passes all pairs,
+    # hence 3 periods with the validated categorical hues, the latest in amber.
+    "periods": ["#3B8EE6", "#D9628F", "#C28400"],
     "area": "rgba(159,176,198,0.14)",
     "good": "#45C98A",
     "hover": "#1A2B45",
@@ -415,13 +419,13 @@ def scatter_by_period(
     P: dict,
     x_label: str,
     y_label: str,
-    n_periods: int = 4,
+    n_periods: int = 3,
     pace_x: bool = False,
     pace_y: bool = False,
     height: int = 420,
     hover_extra: str = "",
 ) -> go.Figure:
-    """Scatter coloured by consecutive periods (ordinal ramp) with one fitted line per period.
+    """Scatter coloured by consecutive periods (`P["periods"]`) with one fitted line per period.
 
     If the lines of later periods sit above earlier ones, y increased at equal x.
     """
@@ -431,8 +435,9 @@ def scatter_by_period(
         return layout(fig, P, height)
     data["period"] = period_labels(data["start_local"], n_periods)
     order = data.groupby("period")["start_local"].min().sort_values().index.tolist()
-    ramp = P["ordinal"][-len(order) :] if len(order) <= len(P["ordinal"]) else P["ordinal"]
-    for color, period in zip(ramp, order, strict=False):
+    # Right-aligned so that the most recent period is always amber.
+    colors = P["periods"][-len(order) :]
+    for color, period in zip(colors, order, strict=True):
         part = data[data["period"] == period]
         fig.add_trace(
             go.Scatter(

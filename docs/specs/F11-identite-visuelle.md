@@ -29,7 +29,7 @@ L'ambre signifie toujours « **votre valeur actuelle** » : le chiffre héros, l
 **Couleurs de graphiques.** Elles ont été validées par `validate_palette.js` sur la surface `#122036` (mode sombre, toutes paires) :
 
 - catégorielles : ambre `#C28400`, bleu couloir `#3B8EE6`, rose dossard `#D9628F` ;
-- périodes ordonnées (de la plus ancienne à la plus récente) : `#8A5A0F` → `#B87814` → `#E59A18` → `#FFC14D`. La période la plus récente est la plus lumineuse.
+- périodes ordonnées, de la plus ancienne à la plus récente : bleu `#3B8EE6` → rose `#D9628F` → ambre `#C28400`. La période la plus récente est toujours en ambre. L'ancienne rampe d'ambres était trop difficile à distinguer (écart ΔE 10,6, sous le seuil de 15), et aucune palette de 4 couleurs ne passe la validation sur toutes les paires : les nuages comptent donc 3 périodes.
 
 **États.** Progrès `#45C98A`, alerte `#FF7B72`. Ils sont toujours accompagnés d'une flèche et d'un texte.
 

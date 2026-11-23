@@ -1,0 +1,39 @@
+# Streamlit configuration (read when the app is started from the project root,
+# which `ctrack ui` does). Visual identity: docs/specs/F11-identite-visuelle.md
+
+[server]
+headless = true
+maxUploadSize = 1024        # MB — Garmin/Strava bulk exports can be large
+runOnSave = false
+
+[browser]
+gatherUsageStats = false    # no telemetry
+
+[client]
+toolbarMode = "minimal"
+
+# "Piste de nuit": navy track at night, chalk lane lines, race-clock amber.
+[theme]
+base = "dark"
+primaryColor = "#FFB020"
+backgroundColor = "#0B1624"
+secondaryBackgroundColor = "#122036"
+textColor = "#EAF0F7"
+linkColor = "#FFB020"
+linkUnderline = false
+borderColor = "#24385A"
+showWidgetBorder = true
+dataframeBorderColor = "#24385A"
+dataframeHeaderBackgroundColor = "#1A2B45"
+baseRadius = "0.6rem"
+buttonRadius = "0.5rem"
+font = "-apple-system, BlinkMacSystemFont, sans-serif"
+headingFont = "DIN Alternate, DIN Condensed, Avenir Next Condensed, sans-serif"
+metricValueFontWeight = 700
+chartCategoricalColors = ["#C28400", "#3B8EE6", "#D9628F"]
+greenColor = "#45C98A"
+redColor = "#FF7B72"
+orangeColor = "#FFB020"
+blueColor = "#3B8EE6"
+grayColor = "#9FB0C6"
+showSidebarBorder = false

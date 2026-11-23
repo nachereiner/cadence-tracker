@@ -1,0 +1,21 @@
+# Personal data — never commit
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Secrets (the Garmin key lives in the OS keychain, but just in case)
+.env
+*.key
+connect-personal-api-key
+
+# Python / tooling
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+.DS_Store

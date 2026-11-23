@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src/cadence_tracker/ui/assets/mark.svg" alt="Logo Cadence Tracker" width="96">
+</p>
+
 # Running Cadence Tracker
 
 Un outil **personnel et local** pour suivre l'évolution de sa **cadence de course** et comprendre ses liens avec l'**allure** et la **fréquence cardiaque**.
@@ -7,6 +11,8 @@ Il répond à quelques questions concrètes : la cadence augmente-t-elle vraimen
 - Données récupérées automatiquement depuis **Garmin Connect** (API personnelle officielle), ou importées depuis des fichiers **FIT, TCX, GPX ou ZIP** (exports complets Garmin et Strava compris).
 - Tout reste sur la machine : une base SQLite dans `data/`. Aucune donnée GPS n'est accessible depuis l'application, aucun export. Pas de cloud, pas de télémétrie.
 - Interface web locale au thème sombre « Piste de nuit » : tableau de bord (mode Route ou Trail), corrélations, objectif cadence avec date estimée, sorties, comparaison de sorties, réglages.
+
+![Tableau de bord de Cadence Tracker](docs/images/tableau-de-bord.png)
 
 ## Installation
 
